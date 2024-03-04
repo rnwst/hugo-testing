@@ -37,6 +37,8 @@ tags:
   - a`b
   - ab
   - a~b
+  - résumés
+  - miesiąc 
 ---
 
 ## Analysis
