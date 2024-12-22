@@ -4,6 +4,17 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0">
   <title>{{ if .IsHome }}{{ site.Title }}{{ else }}{{ printf "%s | %s" .Title site.Title }}{{ end }}</title>
+
+{{- /* Make sure the resource "external.js" is published. */}}
+{{- (resources.Get "external.js").Publish }}
+
+{{- $script := resources.Get "script.js" }}
+{{- $opts := dict "format" "esm"
+                  "externals" (slice "/external.js")
+}}
+{{- $script = $script | js.Build $opts }}
+  <script type="module" src="{{ $script.Permalink }}"></script>
+
 </head>
 <body>
   <header>
