@@ -1,0 +1,13 @@
+{{- $styles := resources.Match "css/**.css" }}
+
+{{- if not .Params.containsMath }}
+  {{- $styles = where $styles "Name" "ne" "/css/katex.css" }}
+{{- end }}
+
+{{- range $styles }}
+    <meta content="{{ .Name }}" />
+{{- end }}
+
+    <style>
+      {{- (resources.Concat "css/styles.css" $styles).Content | safeCSS }}
+    </style>
